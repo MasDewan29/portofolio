@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Portofolio Dhany Dewanto Putra</title>
+  <link href="profile.jpg" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <style>
+    /* Reset & global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+    body {
+      background: #0a0a0f;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.8s, color 0.8s;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      color: #00d4ff;
+      text-shadow: 0 0 10px #00d4ff88;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      z-index: 1000;
+      user-select: none;
+    }
+    nav a {
+      position: relative;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #00d4ff;
+      bottom: -5px;
+      left: 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    nav a:hover, nav a:focus {
+      color: #00d4ff;
+      outline: none;
+      text-shadow: 0 0 15px #00d4ff;
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
+    }
+    /* Responsive navbar rapat di mobile */
+    @media (max-width: 600px) {
+      nav {
+        gap: 12px;
+        font-size: 0.9rem;
+        padding: 10px 8px;
+        flex-wrap: wrap;
+      }
+      nav a {
+        padding: 5px 8px;
+        margin: 0 3px;
+      }
+    }
+
+    /* Hero/Header */
+    header#home {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
+      user-select: none;
+    }
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      z-index: -1;
+    }
+    h1.glitch {
+      font-size: 3rem;
+      position: relative;
+      user-select: none;
+    }
+    h1.glitch::before,
+    h1.glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%;
+      color: #00d4ff;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+      animation: glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0% { clip: rect(0, 900px, 0, 0); }
+      10% { clip: rect(10px, 900px, 50px, 0); }
+      20% { clip: rect(85px, 900px, 140px, 0); }
+      40% { clip: rect(20px, 900px, 80px, 0); }
+      60% { clip: rect(10px, 900px, 100px, 0); }
+      100% { clip: rect(0, 900px, 0, 0); }
+    }
+    .typing {
+      font-size: 1.5rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #00d4ff;
+      min-width: 250px;
+      height: 30px;
+      user-select: none;
+      margin: 0 auto;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-top: 10px;
+      font-family: monospace;
+      opacity: 0;
+    }
+
+    /* About Section */
+    #about {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: flex-start;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    #about img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 4px solid #00d4ff;
+      box-shadow: 0 0 25px #00d4ffaa;
+      object-fit: cover;
+      user-select: none;
+    }
+    #about-content {
+      flex: 1 1 400px;
+      color: #ddd;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    #about-content p + p {
+      margin-top: 1rem;
+    }
+    /* Kampus & Dewan Farm Boxes */
+    .info-box {
+      background: rgba(0, 212, 255, 0.15);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 0 25px #00d4ff88;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 25px;
+      max-width: 550px;
+    }
+    .info-box img {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      object-fit: contain;
+      border: 2px solid #00d4ff;
+      user-select: none;
+    }
+    .info-box div {
+      color: #00d4ff;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* Skills */
+    .skills {
+      margin-top: 30px;
+    }
+    .skill {
+      margin-bottom: 18px;
+    }
+    .skill span {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: #00d4ff;
+    }
+    .skill-bar {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 14px;
+      box-shadow: 0 0 10px #000 inset;
+    }
+    .skill-fill {
+      background: #00d4ff;
+      height: 14px;
+      width: 0;
+      box-shadow: 0 0 15px #00d4ff;
+    }
+
+    /* Stats Section */
+    #stats {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 80px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      text-align: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(40px);
+      user-select: none;
+    }
+    .stat {
+      min-width: 120px;
+    }
+    .counter {
+      font-size: 3rem;
+      color: #00d4ff;
+      font-weight: 700;
+      text-shadow: 0 0 15px #00d4ff;
+    }
+    .stat p {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #ccc;
+      font-size: 1.1rem;
+    }
+
+    /* Portfolio Section */
+    #portfolio {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    #portfolio h2 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .portfolio-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .portfolio-item:hover,
+    .portfolio-item:focus {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 0 30px #00d4ffaa;
+      outline: none;
+    }
+    .portfolio-item h3 {
+      color: #00d4ff;
+      margin-top: 12px;
+      font-weight: 700;
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+      user-select: none;
+    }
+    .popup-content {
+      background: #111;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      color: #eee;
+      box-shadow: 0 0 30px #00d4ff;
+      position: relative;
+    }
+    .popup-content img {
+      max-height: 220px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      object-fit: contain;
+      width: 100%;
+      user-select: none;
+    }
+    .popup-content h3 {
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+      color: #00d4ff;
+    }
+    .popup-content p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    .popup-content button {
+      margin-top: 20px;
+      background: #00d4ff;
+      color: #000;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-family: 'Orbitron', sans-serif;
+      user-select: none;
+    }
+    .popup-content button:hover,
+    .popup-content button:focus {
+      background: #00b0dd;
+      outline: none;
+    }
+
+    /* Testimoni */
+    #testimoni {
+      padding: 100px 20px;
+      text-align: center;
+      max-width: 1100px;
+      margin: auto;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    #testimoni h2 {
+      margin-bottom: 40px;
+    }
+    .slider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 15px;
+    }
+    .testimonial {
+      flex: 0 0 300px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px #00d4ff22;
+      font-style: italic;
+      color: #00d4ff;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    /* Contact Section */
+    #contact {
+      padding: 80px 20px 40px 20px;
+      max-width: 600px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    #contact h2 {
+      color: #00d4ff;
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-align: center;
+      user-select: none;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    input,
+    textarea {
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: 'Orbitron', monospace;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    button[type="submit"] {
+      background: #00d4ff;
+      border: none;
+      color: #000;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.3s;
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background: #00b0dd;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: #05050a;
+      user-select: none;
+    }
+    footer p {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    .social {
+      margin-top: 15px;
+    }
+    .social a {
+      display: inline-block;
+      margin: 0 14px;
+      transition: transform 0.3s, filter 0.3s;
+      cursor: pointer;
+    }
+    .social a img {
+      width: 28px;
+      filter: brightness(1) invert(1);
+      user-select: none;
+    }
+    .social a:hover,
+    .social a:focus {
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 5px #00d4ff);
+      outline: none;
+    }
+
+    /* Mode Toggle */
+    body.light {
+      background: #f5f5f5;
+      color: #111;
+    }
+    body.light nav {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .mode-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      background: #00d4ff;
+      color: #000;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.3s;
+      user-select: none;
+      z-index: 1000;
+    }
+    .mode-toggle:hover,
+    .mode-toggle:focus {
+      background: #00b0dd;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="#home" tabindex="0">Home</a>
+    <a href="#about" tabindex="0">Tentang</a>
+    <a href="#stats" tabindex="0">Statistik</a>
+    <a href="#contact" tabindex="0">Kontak</a>
+  </nav>
+
+  <!-- Hero/Header -->
+  <header id="home" role="banner" aria-label="Halaman utama portofolio">
+    <div id="particles-js"></div>
+    <h1 class="glitch" data-text="Website Portofolio">Website Portofolio</h1>
+    <div class="typing" aria-live="polite" aria-atomic="true"></div>
+  </header>
+
+  <!-- Tentang Saya -->
+  <section id="about" tabindex="0" aria-label="Tentang Dhany dan Dewan Farm">
+    <img src="profile.jpg" alt="Foto Dhany Dewanto Putra" />
+    <div id="about-content">
+      
+        Halo, saya Dhany Dewanto Putra, mahasiswa jurusan Akuntansi & Pasar Modal di President University yang terletak di jababeka, Jawa Barat.
+         dan saya tinggal di Karawang terkenal dengan sejarah pertanian dan peternakan yang kaya serta kontribusi besar pada industri peternakan lokal Indonesia.
+      
+<div>
+
+        <div>
+           Dan saya juga mempunyai bisnis peternakan domba yang berfokus pada kualitas, kesehatan hewan, dan pelayanan terbaik untuk kebutuhan domba kurban, domba pedaging, dan akikah.
+          Dewan Farm berasal dari Karawang, yang dikenal sebagai pusat peternakan tradisional di Indonesia yang bernama Dewan Farm.
+        </div>
+      </div>
+
+</div>
+
+      <div class="skills" aria-label="Keahlian Dhany">
+        <h3>Keahlian</h3>
+        <div class="skill">
+          <span>Akuntansi & Pasar Modal</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+        </div>
+        <div class="skill">
+          <span>Pengembangan Website</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+        </div>
+        <div class="skill">
+          <span>Analisis Data & Trading</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+        </div>
+        <div class="skill">
+          <span>Manajemen Peternakan</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+          
+        <div class="skill">
+          <span>bisa berbicara bahasa inggris</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+          
+        <div class="skill">
+          <span>public speaking di depan umum</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+          
+        <div class="skill">
+          <span>bisa bekerja dengan bantuan AI</span>
+          <div class="skill-bar"><div class="skill-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Statistik -->
+  <section id="stats" tabindex="0" aria-label="Statistik Keahlian dan Pencapaian">
+    <div class="stat">
+      <div class="counter" data-target="120">0</div>
+      <p>Proyek Selesai</p>
+    </div>
+    <div class="stat">
+      <div class="counter" data-target="1500">0</div>
+      <p>Jam Belajar</p>
+    </div>
+    <div class="stat">
+      <div class="counter" data-target="35">0</div>
+      <p>Klien Puas</p>
+    </div>
+ </section>
+
+  <!-- Popup Portfolio -->
+  <div class="popup" id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-desc">
+    <div class="popup-content">
+      <img id="popup-img" src="" alt="Gambar proyek" />
+      <h3 id="popup-title">Judul Proyek</h3>
+      <p id="popup-desc">Deskripsi proyek detail akan muncul disini.</p>
+      <button id="popup-close" aria-label="Tutup popup">Tutup</button>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+  <!-- Kontak -->
+  <section id="contact" tabindex="0" aria-label="Formulir kontak">
+    <h2>Hubungi Saya</h2>
+    <form id="contact-form" aria-label="Formulir kontak">
+      <input type="text" name="name" id="name" placeholder="Nama lengkap" aria-required="true" required />
+      <input type="email" name="email" id="email" placeholder="Email" aria-required="true" required />
+      <textarea name="message" id="message" rows="5" placeholder="Pesan Anda" aria-required="true" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Dhany Dewanto Putra. All rights reserved.</p>
+    <div class="social" aria-label="Sosial media">
+      <a href="https://instagram.com/dhany_d.p" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon" />
+      </a>
+      <a href="https://wa.me/6287721803753" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon" />
+      </a>
+      <a href="https://tiktok.com/@masdewan29" target="_blank" rel="noopener" aria-label="TikTok">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok Icon" />
+      </a>
+    </div>
+  </footer>
+
+  <!-- Tombol Mode Gelap/Terang -->
+  <button class="mode-toggle" aria-pressed="false" aria-label="Toggle mode gelap atau terang">Mode Terang</button>
+
+  <script>
+    // ParticlesJS config (lebih halus & subtle)
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70, density: { enable: true, value_area: 900 } },
+        color: { value: "#00d4ff" },
+        shape: { type: "circle", stroke: { width: 0 }, polygon: { nb_sides: 5 } },
+        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.2, sync: false } },
+        size: { value: 3, random: true, anim: { enable: true, speed: 3, size_min: 0.3, sync: false } },
+        line_linked: { enable: true, distance: 130, color: "#00d4ff", opacity: 0.25, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, bounce: false }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: {
+          grab: { distance: 150, line_linked: { opacity: 0.5 } },
+          bubble: { distance: 200, size: 40, duration: 2, opacity: 8 },
+          repulse: { distance: 200 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // GSAP Animations and ScrollTrigger for fade-in and scale
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate about section
+    gsap.to("#about", {
+      opacity: 1,
+      y: 0,
+      duration: 1.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top 80%",
+      }
+    });
+
+    // Animate stats
+    gsap.to("#stats", {
+      opacity: 1,
+      y: 0,
+      duration: 1.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "#stats",
+        start: "top 80%",
+      }
+    });
+
+    // Animate portfolio items individually
+    gsap.utils.toArray(".portfolio-item").forEach((item, i) => {
+      gsap.to(item, {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        delay: i * 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 90%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    // Animate testimoni section
+    gsap.to("#testimoni", {
+      opacity: 1,
+      y: 0,
+      duration: 1.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "#testimoni",
+        start: "top 80%",
+      }
+    });
+
+    // Animate contact section
+    gsap.to("#contact", {
+      opacity: 1,
+      y: 0,
+      duration: 1.3,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: "#contact",
+        start: "top 90%",
+      }
+    });
+
+    // Animate skill bars filling
+    gsap.utils.toArray(".skill-fill").forEach((bar, i) => {
+      let width;
+      switch(i) {
+        case 0: width = "85%"; break;
+        case 1: width = "80%"; break;
+        case 2: width = "75%"; break;
+        case 3: width = "70%"; break;
+        default: width = "50%";
+      }
+      gsap.to(bar, {
+        width: width,
+        duration: 2,
+        ease: "power2.out",
+        delay: 0.6 + i * 0.4,
+        scrollTrigger: {
+          trigger: bar.parentElement.parentElement,
+          start: "top 90%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    // Counter animation with GSAP
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach(counter => {
+      let target = +counter.getAttribute("data-target");
+      gsap.fromTo(counter, 
+        { innerText: 0 },
+        {
+          innerText: target,
+          duration: 2.2,
+          ease: "power1.out",
+          snap: { innerText: 1 },
+          scrollTrigger: {
+            trigger: counter.parentElement,
+            start: "top 90%",
+            toggleActions: "play none none none"
+          },
+          onUpdate: function () {
+            counter.innerText = Math.floor(this.targets()[0].innerText);
+          }
+        });
+    });
+
+    // Portfolio popup logic
+    const portfolioItems = document.querySelectorAll(".portfolio-item");
+    const popup = document.getElementById("popup");
+    const popupImg = document.getElementById("popup-img");
+    const popupTitle = document.getElementById("popup-title");
+    const popupDesc = document.getElementById("popup-desc");
+    const popupClose = document.getElementById("popup-close");
+
+    portfolioItems.forEach(item => {
+      item.addEventListener("click", () => {
+        popup.style.display = "flex";
+        popupImg.src = item.querySelector("img").src;
+        popupTitle.textContent = item.querySelector("h3").textContent;
+        popupDesc.textContent = "Deskripsi lengkap proyek " + popupTitle.textContent + " akan ditampilkan di sini.";
+        popupClose.focus();
+      });
+      item.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") item.click();
+      });
+    });
+
+    popupClose.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        popup.style.display = "none";
+      }
+    });
+
+    // Mode Toggle Button
+    const modeBtn = document.querySelector(".mode-toggle");
+    modeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      const isLight = document.body.classList.contains("light");
+      modeBtn.textContent = isLight ? "Mode Gelap" : "Mode Terang";
+      modeBtn.setAttribute("aria-pressed", isLight);
+    });
+
+    // Typing animation
+    const typingElement = document.querySelector(".typing");
+    const words = [
+      "Tentang Portofolio",
+      "Solusi Portofolio",
+      "Inovasi Portofolio",
+      "Proyek Portofolio",
+      "Keahlian Portofolio"
+    ];
+    let wordIndex = 0, charIndex = 0, currentText = "", isDeleting = false;
+    const typingSpeed = 120, deletingSpeed = 60, delayAfterWord = 1300;
+
+    function type() {
+      const fullText = words[wordIndex];
+      if (!isDeleting) {
+        currentText = fullText.substring(0, charIndex + 1);
+        charIndex++;
+        typingElement.textContent = currentText;
+        typingElement.style.opacity = "1";
+        if (charIndex === fullText.length) {
+          isDeleting = true;
+          setTimeout(type, delayAfterWord);
+          return;
+        }
+      } else {
+        currentText = fullText.substring(0, charIndex - 1);
+        charIndex--;
+        typingElement.textContent = currentText;
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+      setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+    }
+    type();
+
+    // Contact form dummy submit
+    const form = document.getElementById("contact-form");
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      alert("Terima kasih sudah mengirim pesan!");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
